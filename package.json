@@ -1,0 +1,19 @@
+{
+  "name": "skyflow_apollo_server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@apollo/server": "^4.10.4",
+    "dotenv": "^16.4.5",
+    "graphql": "^16.8.1",
+    "skyflow-node": "^1.14.0"
+  }
+}
