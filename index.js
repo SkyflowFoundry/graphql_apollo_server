@@ -66,6 +66,7 @@ const typeDefs = `#graphql
     detokenize(tokens: [String!]): [Token]
     # get users records by ID
     getUsers(ids: [ID!] tokensBool: Boolean) :[User]
+  }
 `;
 
 // ## Define the resolvers to retrieve data
