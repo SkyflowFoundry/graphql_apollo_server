@@ -1,9 +1,9 @@
 > [!CAUTION]
-> Unsupported example. Not officially supported by Skyflow. Consider this alpha software which may have issues.
+> Not officially supported by Skyflow. Consider this alpha software which may have issues.
 
 # Example: GraphQL - Apollo Server + Skyflow
 
-## Introduction**
+## Introduction
 
 Welcome to our guide on integrating GraphQL with Skyflow using Apollo Server and the Skyflow Node.js SDK. This post will walk you through creating a simple GraphQL API and enhancing its capabilities with Skyflow's data privacy vault.
 
@@ -22,7 +22,7 @@ First we'll set up our environment.
 Ensure Node.js and npm are installed:
 
 ```bash
-???
+node -v
 ```
 
 Create a directory for the project then `cd` into it in Terminal:
