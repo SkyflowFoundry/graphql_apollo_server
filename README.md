@@ -261,3 +261,5 @@ DEBUG: [Skyflow] Initialized skyflow client successfully.
 ```
 
 Now open http://localhost:4000/ in your browser and explore your new Data Privacy Graph powered by Apollo and Skyflow!
+
+![Apollo Studio UI showing the graphQL schema and a sample query](img/Apollo_Studio_with_Skyflow.png)
