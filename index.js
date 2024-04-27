@@ -1,18 +1,20 @@
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
 import { Skyflow, setLogLevel, LogLevel } from 'skyflow-node';
+// ## Include environment variables from .env
+import 'dotenv/config';
 
-// DEV ONLY: set the log level to INFO
+// ## DEV ONLY: set the log level to INFO
 setLogLevel(LogLevel.DEBUG);
 
-// Set up authentication and the Skyflow Vault client.
-// const apiKey = process.env.VAULT_API_KEY;
+// ## Set up authentication and the Skyflow Vault client.
 const client = Skyflow.init({
-  vaultID: process.env.VAULT_ID ||'dd32a450f74540b59d58f1a06370801d',
-  vaultURL: process.env.VAULT_URL || 'https://ebfc9bee4242.vault.skyflowapis.com',
+  vaultID: process.env.VAULT_ID || '',
+  vaultURL: process.env.VAULT_URL || '',
+  // getBearerToken expects a function which returns a promise with the bearer token
   getBearerToken: function () {
     return new Promise((resolve, reject) => {
-      resolve(process.env.VAULT_API_KEY);
+      resolve(process.env.VAULT_ACCESS_TOKEN || '');
     });
   },
 });
