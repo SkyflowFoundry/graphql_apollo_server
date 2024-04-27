@@ -67,27 +67,24 @@ const typeDefs = `#graphql
     # get users records by ID
     getUsers(ids: [ID!] tokensBool: Boolean) :[User]
   }
-
-  # type Mutation {
-  #   insertRecord(name: String!, fields: String!): Record
-  # }
 `;
 
+// ## Define the resolvers to retrieve data
 // Resolvers define how to fetch the types defined in your schema.
-// This resolver retrieves books from the "books" array above.
 
 const resolvers = {
   Query: {
+    // ## Resolve `detokenize()` queries
     async detokenize(parent, args, contextValue, info) {
       // construct the request payload
       const recordsForRequest = args.tokens.map((requestedToken) => {
         return { token: requestedToken };
       });
-      const requestPayload = {
+      const requestData = {
         records: recordsForRequest
       };
       try {
-        const response = await client.detokenize(requestPayload);
+        const response = await client.detokenize(requestData);
         return response.records;
       }
       catch (error) {
@@ -95,9 +92,10 @@ const resolvers = {
         return null;
       }
     },
+    // ### Resolve `getRecords()` queries
     async getRecords(parent, args, contextValue, info) {
       // construct the request payload
-      const requestPayload = {
+      const requestData = {
         records: [
           {
             ids: args.ids,
@@ -107,7 +105,7 @@ const resolvers = {
         ]
       };
       try {
-        const response = await client.get(requestPayload, { tokens: args.tokensBool });
+        const response = await client.get(requestData, { tokens: args.tokensBool });
         return response["records"];
       }
       catch (error) {
@@ -115,9 +113,10 @@ const resolvers = {
         return null;
       }
     },
+    // ### Resolve `getUsers()` queries
     async getUsers(parent, args, contextValue, info) {
       // construct the request payload
-      const requestPayload = {
+      const requestData = {
         records: [
           {
             table: "users",
@@ -127,7 +126,7 @@ const resolvers = {
         ]
       };
       try {
-        const response = await client.get(requestPayload, { tokens: args.tokensBool });
+        const response = await client.get(requestData, { tokens: args.tokensBool });
         return response.records;
       }
       catch (error) {
