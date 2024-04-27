@@ -1,17 +1,17 @@
 > [!CAUTION]
 > Not officially supported by Skyflow. Consider this alpha software which may have issues.
 
-# Example: GraphQL - Apollo Server + Skyflow
-
-## Introduction
+# GraphQL Vault: Apollo Server + Skyflow Vault
 
 Welcome to our guide on integrating GraphQL with Skyflow using Apollo Server and the Skyflow Node.js SDK. This post will walk you through creating a simple GraphQL API and enhancing its capabilities with Skyflow's data privacy vault.
 
 ![Apollo Studio UI showing the graphQL schema and a sample query](img/Apollo_Studio_with_Skyflow.png)
 
-**Understanding GraphQL and Apollo Server**
+## Understanding GraphQL and Apollo Server
 
 GraphQL is a powerful query language for APIs, offering more flexibility and efficiency than traditional REST APIs. Apollo Server is a popular open-source GraphQL server that simplifies building GraphQL APIs in Node.js.
+
+## Get Started
 
 **Introduction to Skyflow**
 
