@@ -243,3 +243,21 @@ const resolvers = {
   },
 };
 ```
+
+### Try it out and explore the graph
+
+```bash
+npm start
+```
+
+Returns:
+
+```bash
+DEBUG: [Skyflow] Initializing skyflow client.
+DEBUG: [Skyflow] SkyflowController initialized.
+DEBUG: [Skyflow] Get bearer token listener added.
+DEBUG: [Skyflow] Initialized skyflow client successfully.
+🚀  Server ready at: http://localhost:4000/
+```
+
+Now open http://localhost:4000/ in your browser and explore your new Data Privacy Graph powered by Apollo and Skyflow!
