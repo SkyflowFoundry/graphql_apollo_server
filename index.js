@@ -1,33 +1,36 @@
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
-import { Skyflow } from 'skyflow-node';
+import { Skyflow, setLogLevel, LogLevel } from 'skyflow-node';
 
-const apiKey = process.env.VAULT_API_KEY;
-console.log(apiKey);
-const helperFunc = function () {
-  return new Promise((resolve, reject) => {
-    resolve(apiKey);
-  });
-};
+// DEV ONLY: set the log level to INFO
+setLogLevel(LogLevel.DEBUG);
+
+// Set up authentication and the Skyflow Vault client.
+// const apiKey = process.env.VAULT_API_KEY;
 const client = Skyflow.init({
-  vaultID: 'dd32a450f74540b59d58f1a06370801d',
-  vaultURL: 'https://ebfc9bee4242.vault.skyflowapis.com',
-  getBearerToken: helperFunc,
+  vaultID: process.env.VAULT_ID ||'dd32a450f74540b59d58f1a06370801d',
+  vaultURL: process.env.VAULT_URL || 'https://ebfc9bee4242.vault.skyflowapis.com',
+  getBearerToken: function () {
+    return new Promise((resolve, reject) => {
+      resolve(process.env.VAULT_API_KEY);
+    });
+  },
 });
 
 
 
+// Define the GraphQL schema
 const typeDefs = `#graphql
   # Comments in GraphQL strings (such as this one) start with the hash (#) symbol.
 
   # This "Book" type defines the queryable fields for every book in our data source.
   schema {
     query: Query
-    mutation: Mutation
+    # mutation: Mutation
   }
 
   type Record {
-    # id: ID!
+    id: ID!
     table: String!
     fields: Fields!
   }
@@ -50,23 +53,23 @@ const typeDefs = `#graphql
     fields: Fields!
   }
 
-
   # Query definitions
   # The "Query" type is special: it lists all of the available queries that
   # clients can execute, along with the return type for each. In this
   # case, the "books" query returns an array of zero or more Books (defined above).
   type Query {
+    # get record(s) by ID(s)
     getRecords(table: String! ids: [ID!] tokensBool: Boolean): [Record]
+    # detokenize tokens
     detokenize(tokens: [String!]): [Token]
+    # get users records by ID
     getUsers(ids: [ID!] tokensBool: Boolean) :[User]
   }
 
-  type Mutation {
-    insertRecord(name: String!, fields: String!): Record
-  }
+  # type Mutation {
+  #   insertRecord(name: String!, fields: String!): Record
+  # }
 `;
-
-
 
 // Resolvers define how to fetch the types defined in your schema.
 // This resolver retrieves books from the "books" array above.
@@ -123,7 +126,6 @@ const resolvers = {
       };
       try {
         const response = await client.get(requestPayload, { tokens: args.tokensBool });
-        console.log(response.records);
         return response.records;
       }
       catch (error) {
